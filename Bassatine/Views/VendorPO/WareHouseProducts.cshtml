@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "WareHouseProducts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<ul class="breadcrumb breadcrumb-page">
+    <div class="breadcrumb-label text-light-gray">You are here: </div>
+    <li><a href="/">Home</a></li>
+    <li class="active">WareHouse Products</li>
+</ul>
+
+<!-- Header -->
+<div class="page-header">
+    <div class="row">
+        <h1 class="col-xs-8 text-center text-left-sm"><i class="fa fa-sun-o page-header-icon"></i>&nbsp;&nbsp;List Of WareHouse Products</h1>
+    </div>
+</div>
+<div class="row" ng-app="bassatineApp" ng-controller="vendorProController">
+    <form class="panel form-horizontal">
+        <div class="col-sm-12">
+            <div class="panel form-horizontal">
+                <div class="panel-heading">
+                    <span class="panel-title">List Of Products<span style="float:right"></span></span>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+
+                            <table class="table ">
+                                <thead>
+                                    <tr>
+                                        <th>WareHouse Code</th>
+                                        <th>Product Code</th>
+                                        <th>Product Description</th>
+                                        <th>OnHandQty</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="WProduct in WareHouseProducts">                                        
+                                        <td><span>{{WProduct.WarehouseCode}}</span></td>
+                                        <td><span>{{WProduct.ProdCode}}</span></td>
+                                        <td><span>{{WProduct.ProdDesc}}</span></td>
+                                        <td><span>{{WProduct.OnHandQty}}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+

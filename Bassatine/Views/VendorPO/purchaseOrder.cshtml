@@ -1,0 +1,202 @@
+﻿
+@{
+    ViewBag.Title = "purchaseOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    textarea {
+        overflow-y: scroll;
+        resize: none;
+    }
+</style>
+<!-- Loader -->
+@*<div id="loader">
+        <img src="/Content/images/loading.gif" />
+    </div>*@
+
+<!-- Breadcrumb-->
+<ul class="breadcrumb breadcrumb-page">
+    <div class="breadcrumb-label text-light-gray">You are here: </div>
+    <li><a href="/">Home</a></li>
+    <li class="active">Purchase Orders</li>
+</ul>
+
+<!-- Header -->
+<div class="page-header">
+    <div class="row">
+        <h1 class="col-xs-8 text-center text-left-sm"><i class="fa fa-sun-o page-header-icon"></i>&nbsp;&nbsp;List Of POs</h1>
+        <a style="float:right" class="btn btn-primary" data-toggle="modal"  data-target="#addPO">Submit New PO</a>
+        @*<div class="col-xs-4"><a class="quick-launch" data-toggle="modal" data-target="#addteams" title="New Teams">Create New Team&nbsp&nbsp<i class="fa fa-plus-circle page-header-icon"></i></a></div>*@
+    </div>
+</div>
+
+<!-- Body -->
+<div class="row" ng-app="bassatineApp" ng-controller="vendorPOController">
+    <form class="panel form-horizontal">
+        <div class="col-sm-12">
+            <div class="panel form-horizontal">
+                @*<div class="panel-heading">
+                        <span class="panel-title">EvoMetal Teams<span style="float:right"></span></span>
+                    </div>*@
+                @*<div class="col-sm-12">
+
+                        <a style="float:right" class="btn btn-primary" data-toggle="modal" ng-click="addnewTAEmployeeRate('')" data-target="#addrates">Submit New Employee Rate</a>
+                    </div>*@
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <table class="table ">
+                                <thead>
+                                    <tr>
+                                        <th>Status</th>
+                                        <th>Code</th>
+                                        <th>Date</th>
+                                        <th>WareHouse Code</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="PO in vendorPOs">
+                                        <td><span>{{PO.PurchOrderStatus}}</span></td>
+                                        <td><span>{{PO.PurchOrderCode}}</span></td>
+                                        <td><span>{{(PO.PurchDate | date:'dd/MM/yyyy')}}</span></td>
+                                        <td><span>{{PO.WarehouseCode}}</span></td>
+                                        <td><a href="/VendorPO/POLines?id= {{PO.id_PurchOrder}}&action={{action}}">Edit</a></td>
+
+                                        @*<td><button type="button" class="btn btn-primary" ng-click="edit($index)">edit</button></td>
+                                        <td><a href="#" ng-click="edit($index)" data-toggle="modal" data-target="#editPO">Edit</a></td>*@
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <div id="addPO" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="panel-title">New PO</span>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <img class="btn-close" data-dismiss="modal" src="/Content/images/plugins/bootstrap-editable/close.png" />
+                </div>
+                <div class="modal-body">
+                    <form class="panel-body">
+                        <fieldset>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="ddlStatus">Status</label>
+                                    <div class="col-sm-10">
+                                        <select id="ddlStatus" ng-model="datavendorPO.id_WareHouse" class="form-control form-group-margin" required>
+                                            <option value="">--Select WareHouse--</option>
+                                            <option ng-repeat="WareHouse in lstWareHouses" value="{{WareHouse.id_WareHouse}}">{{WareHouse.WareHouseCode}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Delivery Date</label>
+                                    <div class="col-sm-10">
+                                        <div class="input-group date datapickergroup" id="dtPurchaseDate">
+                                            <input type="text" ng-model="datavendorPO.PODeliveryDate" class="form-control" placeholder="Delivery Date" required>
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                   
+
+                                    @*<div class="form-group">
+                <label for="input-Default" class="col-sm-2 control-label">Code</label>
+                <div class="col-sm-10"><input type="text" ng-model="datavendorPO.PurchOrderCode" class="form-control" required /></div>
+            </div>
+            <div class="form-group">
+                <label for="input-Default" class="col-sm-2 control-label">Date</label>
+                <div class="col-sm-10">
+                    <div class="input-group date" id="dtFromDate">
+                        <input type="text" ng-model="datavendorPO.PurchDate" class="form-control" placeholder="Date">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>*@
+
+                                    @*<div class="form-group">
+                <label for="input-Default" class="col-sm-2 control-label">WareHouse Code</label>
+                <div class="col-sm-10"><input type="text" ng-model="datavendorPO.WarehouseCode" class="form-control" required /></div>
+            </div>*@
+                                    <input type="submit" value="Add" ng-click="add()" class="btn btn-primary" />
+                                </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<div id="editPO" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="panel-title">Manage PO</span>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <img class="btn-close" data-dismiss="modal" src="/Content/images/plugins/bootstrap-editable/close.png" />
+                </div>
+                <div class="modal-body">
+                    <form class="panel-body">
+                        <fieldset>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="ddlStatus">Status</label>
+                                    <div class="col-sm-10">
+                                        <select id="ddlStatus" ng-model="datavendorPO.PurchOrderStatus" class="form-control form-group-margin" required>
+                                            <option value="">--Select Status--</option>
+                                            <option>Act</option>
+                                            <option>Cls</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="input-Default" class="col-sm-2 control-label">Code</label>
+                                    <div class="col-sm-10"><input type="text" ng-model="datavendorPO.PurchOrderCode" class="form-control" required /></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group date" id="dtFromDate">
+                                        <input type="text" ng-model="datavendorPO.PurchDate" class="form-control" placeholder="Date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="input-Default" class="col-sm-2 control-label">WareHouse Code</label>
+                                    <div class="col-sm-10"><input type="text" ng-model="datavendorPO.WarehouseCode" class="form-control" required /></div>
+                                </div>
+
+
+                                <input type="submit" value="Add" ng-click="Update()" class="btn btn-primary" />
+                            </div>  
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+    @*<script type="text/javascript">
+                $(function () {
+                    $('#startDate').datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
+                });
+        </script>*@
+
+</div>
+

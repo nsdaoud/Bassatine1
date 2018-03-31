@@ -1,0 +1,249 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <title>Bassatine</title>
+    <script src="/Content/javascripts/jquery.min.js"></script>
+    <script src="/Content/javascripts/jquery.table2excel.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin" rel="stylesheet" type="text/css">
+
+    <link href="/Content/calendar/fullcalendar.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/stylesheets/pixel-admin.min.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/stylesheets/widgets.min.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/stylesheets/rtl.min.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/stylesheets/app.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/stylesheets/butecThemes.css" rel="stylesheet" />
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body class="theme-default main-menu-animated">
+    <div id="unsupportedBrowser">For better experience use internet explorer 10 or chrome</div>
+    <div>
+        <div id="main-wrapper">
+            <div id="main-navbar" class="navbar navbar-inverse" role="navigation">
+                <!-- Main menu toggle -->
+                <button type="button" id="main-menu-toggle"><i class="navbar-icon fa fa-bars icon"></i><span class="hide-menu-text">HIDE MENU</span></button>
+
+                <div class="navbar-inner">
+                    <!-- Main navbar header -->
+                    <div class="navbar-header">
+
+                        <!-- Logo -->
+                        <a href="/" class="navbar-brand">
+                            <div><img alt="Basateen" src="/Content/images/pixel-admin/main-navbar-logo.png"></div>
+                            Basateen
+                        </a>
+
+                        <!-- Main navbar toggle -->
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar-collapse"><i class="navbar-icon fa fa-bars"></i></button>
+                    </div>
+
+                    <div id="main-navbar-collapse" class="collapse navbar-collapse main-navbar-collapse">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Menu -->
+
+            <div id="main-menu" role="navigation">
+                <div class="menu-content top" id="menu-content-demo">
+                    <div>
+                        <img src="/Content/images/avatar.png" alt="" style="top:-4px" />
+                        <a href="javascript:void(0)" class="text-bg">
+                            <span class="text-slim">Welcome <br /> </span>
+                            <span class="text-semibold">@Html.Partial("_LoginPartial")</span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <ul class="navigation">
+                    <li><a href="/Home/index"><i class="menu-icon fa fa-home"></i><span class="mm-text">Home</span></a></li>
+                    <li class="mm-dropdown">
+                        <a href="#"><i class="menu-icon fa fa-users"></i><span class="mm-text">Administration</span></a>
+                        <ul>
+                            @if (DBBassatine.Business.BassatineRoleProvider.IsCurrentUserInRole(User.Identity.GetUserName()))
+                            {
+                                <li class="mm-dropdown">
+                                    <a href="#"><i class="menu-icon fa fa-user"></i><span class="mm-text">User Info</span></a>
+                                    <ul>
+                                        <li><a href="/Account/bassatineusers"><i class="menu-icon fa fa-sun-o"></i><span class="mm-text">Bassatine Users</span></a></li>
+                                     
+                                    </ul>
+                                </li>
+                            }
+
+                                         
+                            <li class="mm-dropdown">
+                                <a href="#"><i class="menu-icon fa fa-user"></i><span class="mm-text">Vendor Informations</span></a>
+                                <ul>
+                                    <li><a href="/VendorPO/vendorProducts"><i class="menu-icon fa fa-sun-o"></i><span class="mm-text">Vendor Products</span></a></li>
+                                    <li><a href="/VendorPO/WareHouseProducts"><i class="menu-icon fa fa-sun-o"></i><span class="mm-text">Stock</span></a></li>
+                                    <li><a href="/VendorPO/purchaseOrder?action=isnotadmin"><i class="menu-icon fa fa-sun-o"></i><span class="mm-text">My Purchase Order</span></a></li>
+                                    @if (DBBassatine.Business.BassatineRoleProvider.IsCurrentUserInRole(User.Identity.GetUserName()))
+                                    {
+                                        <li><a href="/VendorPO/purchaseOrder?action=isadmin"><i class="menu-icon fa fa-sun-o"></i><span class="mm-text">All Purchase Order</span></a></li>
+                                    }
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="content-wrapper">
+                @RenderBody()
+            </div>
+            <div id="main-menu-bg"></div>
+
+        </div>
+
+    </div>
+    <script src="/Content/javascripts/jquery.min.js"></script>
+    <script src="/Content/javascripts/jquery.table2excel.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin" rel="stylesheet" type="text/css">
+
+    <script src="/Content/calendar/moment.min.js"></script>
+    <script src="/Content/calendar/fullcalendar.min.js"></script>
+    <script src="/Content/javascripts/bootstrap.min.js"></script>
+    <script src="/Content/javascripts/pixel-admin.js"></script>
+    <script src="/Content/javascripts/angular.min.js"></script>
+    <script src="/Content/javascripts/ng-table.min.js"></script>
+    <script src="/Content/Javascripts/app.js"></script>
+    <script src="/Content/javascripts/unsupported.js"></script>
+    <script src="/Content/javascripts/bassatine.js"></script>
+    <script type="text/javascript">
+           var init = [];
+           init.push(function () {
+
+           });
+           window.PixelAdmin.start(init);
+
+           supportBorderLess();
+
+    </script>
+
+
+    <script>
+
+           $("#txtQuantity").on("keypress keyup blur", function (event) {
+               //this.value = this.value.replace(/[^0-9\.]/g,'');
+               $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
+               if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                   event.preventDefault();
+               }
+           });
+
+           $("#txtUnitPrice").on("keypress keyup blur", function (event) {
+               //this.value = this.value.replace(/[^0-9\.]/g,'');
+               $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
+               if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                   event.preventDefault();
+               }
+           });
+
+           $("#txtAmount").on("keypress keyup blur", function (event) {
+               //this.value = this.value.replace(/[^0-9\.]/g,'');
+               $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
+               if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                   event.preventDefault();
+               }
+           });
+            
+           init.push(function () {
+
+
+               var options = {
+
+                   todayBtn: "linked",
+                   format: 'dd-MM-yyyy',
+                   orientation: $('body').hasClass('right-to-left') ? "auto right" : 'auto auto'
+               }
+               $('.bs-datepicker').datepicker(options);
+
+               $('#bs-datepicker-component').datepicker();
+
+               $('#dtToDate').datepicker({
+                   format: 'dd-MM-yyyy'
+               });
+               $('#dtFromDate').datepicker({
+                   format: 'dd-MM-yyyy'
+               });
+
+               $('#dtPurchaseDate').datepicker({
+                   format: 'dd-MM-yyyy'
+               });
+
+               var options2 = {
+                   //todayBtn: "linked",
+                   //format: 'dd/MM/yyyy',
+                   orientation: $('body').hasClass('right-to-left') ? "auto right" : 'auto auto'
+               }
+               $('.bs-datepicker-range').datepicker(options2);
+
+               $('#bs-datepicker-inline').datepicker();
+           });
+
+
+    </script>
+
+    <script>
+         init.push(function () {
+             var options = {
+                 minuteStep: 5,
+                 orientation: $('body').hasClass('right-to-left') ? { x: 'right', y: 'auto' } : { x: 'auto', y: 'auto' }
+             }
+             $('.bs-timepicker').timepicker(options);
+         });
+    </script>
+
+    <style>
+        .panel-heading {
+            font-weight: bold;
+            border-bottom-color: #cecece;
+        }
+
+
+        .loader {
+            border: 10px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 10px solid #3498db;
+            width: 30px;
+            height: 30px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+
+        @@-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        /*<div class="loader"></div>*/
+        /*document.getElementById("loader").style.display = "block";*/
+        /*document.getElementById("loader").style.display = "none";*/
+    </style>
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+    @RenderSection("scripts", required: false)
+</body>
+</html>

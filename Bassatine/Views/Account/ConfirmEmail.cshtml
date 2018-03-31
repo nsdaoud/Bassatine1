@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Confirm Email";
+    Layout = null;
+}
+
+<script src="/Content/javascripts/jquery.min.js"></script>
+<script src="/Content/javascripts/bootstrap.min.js"></script>
+<link href="/Content/stylesheets/bootstrap.min.css" rel="stylesheet" />
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+
+
+
+
+<h2>@ViewBag.Title.</h2>
+<div>
+    <p>
+        Thank you for confirming your email. Please @Html.ActionLink("Click here to Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+    </p>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+}

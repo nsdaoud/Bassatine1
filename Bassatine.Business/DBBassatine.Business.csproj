@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FA9F574A-BF85-4EED-88CB-8EFB254234ED}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DBBassatine.Business</RootNamespace>
+    <AssemblyName>DBBassatine.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Bassatine\DLL\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Config\Config.cs" />
+    <Compile Include="Config\ConfigManager.cs" />
+    <Compile Include="ConnectionManager\CustomSqlConnection.cs" />
+    <Compile Include="ConnectionManager\CustomSqlParameter.cs" />
+    <Compile Include="EmailService\EmailInfo.cs" />
+    <Compile Include="EmailService\EmailManager.cs" />
+    <Compile Include="logging\LogHelper.cs" />
+    <Compile Include="Members\Context\ContextInfo.cs" />
+    <Compile Include="Members\MemberShip\BassatineRoleProvider.cs" />
+    <Compile Include="Members\Member.cs" />
+    <Compile Include="Members\MemberManager.cs" />
+    <Compile Include="NotFoundException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Users\IBassatineUsersManager.cs" />
+    <Compile Include="Users\BassatineUsers.cs" />
+    <Compile Include="Users\BassatineUsersManager.cs" />
+    <Compile Include="VendorPOLines\IPurchOrderLinesManager.cs" />
+    <Compile Include="VendorPOLines\PurchOrderLines.cs" />
+    <Compile Include="VendorPOLines\PurchOrderLinesManager.cs" />
+    <Compile Include="VendorPO\IVendorPOManager.cs" />
+    <Compile Include="VendorPO\VendorPO.cs" />
+    <Compile Include="VendorPO\VendorPOManager.cs" />
+    <Compile Include="VendorProducts\IVendorProductsManager.cs" />
+    <Compile Include="VendorProducts\VendorProducts.cs" />
+    <Compile Include="VendorProducts\VendorProductsManager.cs" />
+    <Compile Include="VendorWarehouseProducts\IWareHouseProductsManager.cs" />
+    <Compile Include="VendorWarehouseProducts\WareHouseProducts.cs" />
+    <Compile Include="VendorWarehouseProducts\WareHouseProductsManager.cs" />
+    <Compile Include="WareHouse\IWareHousesManager.cs" />
+    <Compile Include="WareHouse\clsWareHouses.cs" />
+    <Compile Include="WareHouse\WareHousesManager.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

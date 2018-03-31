@@ -1,0 +1,235 @@
+﻿
+@{
+    ViewBag.Title = "POLines";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb breadcrumb-page">
+    <div class="breadcrumb-label text-light-gray">You are here: </div>
+    <li><a href="/">Home</a></li>
+    <li class="active">PO Lines</li>
+</ul>
+
+<!-- Header -->
+<div class="page-header">
+    <div class="row">
+        <h1 class="col-xs-8 text-center text-left-sm"><i class="fa fa-sun-o page-header-icon"></i>&nbsp;&nbsp;List Of POLines</h1>
+        @*<a style="float:right" class="btn btn-primary" data-toggle="modal" data-target="#addPO">Submit New POLine</a>*@
+        @*<div class="col-xs-4"><a class="quick-launch" data-toggle="modal" data-target="#addteams" title="New Teams">Create New Team&nbsp&nbsp<i class="fa fa-plus-circle page-header-icon"></i></a></div>*@
+    </div>
+</div>
+
+<div class="row" ng-app="bassatineApp" ng-controller="vendorPOLinesController">
+    <div class="col-sm-12">
+        <form class="panel form-horizontal">
+
+            <div class="panel-heading">
+                <span class="panel-title">PO Information</span>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+
+                    <label class="col-sm-1 control-label" for="txtPurchOrderCode">PO Code</label>
+                    <div class="col-sm-3">
+                        <input class="form-control" readonly ng-model="selectedvendorPO.PurchOrderCode" id="txtPurchOrderCode" type="text" />
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label" for="ddlStatus">PO Status</label>
+                        <div class="col-sm-3">
+                            <select id="ddlStatus" ng-disabled="POInProcesStatus()" ng-model="selectedvendorPO.PurchOrderStatus" class="form-control form-group-margin" required>
+                                <option value="">--Select Status--</option>
+                                <option>In Preparation</option>
+                                <option>In Process</option>
+                                <option>Approved</option>
+                                <option>Not Approved</option>
+
+                            </select>
+
+
+                        </div>
+
+                        <label class="col-sm-1 control-label" for="txtwarehousecode">WareHouse Code</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" readonly ng-model="selectedvendorPO.WarehouseCode" id="txtwarehousecode" type="text" />
+                        </div>
+                        <label class="col-sm-1 control-label">Creation Date</label>
+                        <div class="col-sm-3">
+                            <div class="input-group date datapickergroup" id="dtPurchaseDate">
+                                <input type="text" ng-disabled="true" ng-model="selectedvendorPO.PurchDate | date:'dd/MM/yyyy'" class="form-control" placeholder="Purchase Date">
+                                <span ng-hide="true" class="input-group-addon"><i  ng-hide="true" class="fa fa-calendar"></i></span>
+                            </div>
+
+                        </div>
+                       
+                    </div>
+              
+               @* <div class="form-group">*@
+                    @*<button type="button" class="col-sm-offset-11 btn btn-danger" ng-click="add()">Save</button>*@
+                    <button type="button" ng-hide="CanSendToBassatine()" class="col-sm-offset-11 btn btn-danger" ng-click="sendtobassatine()">Send To Bassatine</button>
+                <button type="button" ng-hide="CanSendToVendor()" class="col-sm-offset-11 btn btn-danger" ng-click="sendtovendor()">Send To Vendor</button>
+                @*</div>*@
+            </div> 
+
+        </form>
+        <form ng-hide="!POLinesInProcesStatus()" class="panel form-horizontal">
+            <div class="panel-heading">
+                <span class="panel-title">PO Lines</span>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <table class="table ">
+                            <thead>
+                                <tr>
+                                    <th>Product Code</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price</th>
+                                    <th>Amount</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="PO in vendorPOLines">
+                                    <td><span>{{PO.ProdCode}}</span></td>
+                                    <td><span>{{PO.Quantity}}</span></td>
+                                    <td><span>{{(PO.UnitPrice)}}</span></td>
+                                    <td><span>{{PO.Amount}}</span></td>
+                                    @*<td><a href="/VendorPO/POLines?id= {{PO.id_PurchOrder}}">Edit</a></td>*@
+                                    @* <td><a href="/VendorPO/POLines?id= {{PO.id_PurchOrder}}">Delete</a></td>*@
+                                    @*  <td><button data-toggle="modal" data-target="#editrates" ng-click="edit($index)">edit</button></td>*@
+                                    <td><a href="#" ng-hide="POLinesInProcesStatus()"  data-toggle="modal" data-target="#editrates" ng-click="edit($index)">Edit</a></td>
+                                    <td><a href="#" ng-hide="POLinesInProcesStatus()"  ng-click="delete($index)">Delete</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form ng-hide="POLinesInProcesStatus()" class="panel form-horizontal">
+                <div class="panel-heading">
+                    <span class="panel-title">Add PO's Product</span>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+
+                        <label class="col-sm-1 control-label" for="ddlProducts">Products</label>
+                        <div class="col-sm-3">
+                            <input type="text"  id="ddlProducts" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label" for="txtQuantity">Quantity</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" ng-model="newvendorPOLine.Quantity" id="txtQuantity" type="text" />
+                        </div>
+                        <label class="col-sm-1 control-label" for="txtUnitPrice">Unit Price</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" ng-model="newvendorPOLine.UnitPrice" id="txtUnitPrice" type="text" />
+                        </div>
+                        <label class="col-sm-1 control-label" for="txtAmount">Amount</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" ng-model="newvendorPOLine.Amount" id="txtAmount" type="text" />
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="col-sm-offset-11 btn btn-danger" ng-click="add()">Save</button>
+                    </div>
+
+                    <div class="panel-heading">
+                        <span class="panel-title">PO Lines</span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <table class="table ">
+                                    <thead>
+                                        <tr>
+                                            <th>Product Code</th>
+                                            <th>Quantity</th>
+                                            <th>Unit Price</th>
+                                            <th>Amount</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="PO in vendorPOLines">
+                                            <td><span>{{PO.ProdCode}}</span></td>
+                                            <td><span>{{PO.Quantity}}</span></td>
+                                            <td><span>{{(PO.UnitPrice)}}</span></td>
+                                            <td><span>{{PO.Amount}}</span></td>
+                                            @*<td><a href="/VendorPO/POLines?id= {{PO.id_PurchOrder}}">Edit</a></td>*@
+                                            @* <td><a href="/VendorPO/POLines?id= {{PO.id_PurchOrder}}">Delete</a></td>*@
+                                           
+                                            <td><a href="#" data-toggle="modal" data-target="#editrates" ng-click="edit($index)">Edit</a></td>
+                                            <td><a href="#" ng-click="delete($index)">Delete</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </form>
+</div>
+    <div id="editrates" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="panel-title">Manage POLines</span>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    @*<img class="btn-close" data-dismiss="modal" src="/Content/images/plugins/bootstrap-editable/close.png" />*@
+                </div>
+                <div class="modal-body">
+                    <form class="panel-body">
+                        <fieldset>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="txtProductCode">Product Code</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" ng-model="selectedvendorPOLines.ProdCode" id="txtProductCode" readonly type="text" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="txtQuantity">Quantity</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" step="any" ng-model="selectedvendorPOLines.Quantity" id="txtQuantity" type="number"  />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="input-Default" class="col-sm-2 control-label">Unit Price</label>
+                                    <div class="col-sm-10"><input type="number" step="any" ng-model="selectedvendorPOLines.UnitPrice"  id="txtUnitPrice" class="form-control" required /></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="txtAmount">Amount</label>
+                                    <div class="col-sm-10"><input class="form-control" step="any" ng-model="selectedvendorPOLines.Amount"  id="txtAmount" type="number" />
+                                    </div>
+                                </div>
+
+
+                                <input type="submit" value="Add" ng-click="Update()" class="btn btn-primary" />
+                            </div>
+                        </fieldset>
+                      
+                    </form>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+   
+</div>

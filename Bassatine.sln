@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bassatine", "Bassatine\Bassatine.csproj", "{4D79DC06-E347-4AF4-A8B4-771F6B82CBFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBBassatine.Business", "Bassatine.Business\DBBassatine.Business.csproj", "{FA9F574A-BF85-4EED-88CB-8EFB254234ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D79DC06-E347-4AF4-A8B4-771F6B82CBFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D79DC06-E347-4AF4-A8B4-771F6B82CBFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D79DC06-E347-4AF4-A8B4-771F6B82CBFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D79DC06-E347-4AF4-A8B4-771F6B82CBFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA9F574A-BF85-4EED-88CB-8EFB254234ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA9F574A-BF85-4EED-88CB-8EFB254234ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA9F574A-BF85-4EED-88CB-8EFB254234ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA9F574A-BF85-4EED-88CB-8EFB254234ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

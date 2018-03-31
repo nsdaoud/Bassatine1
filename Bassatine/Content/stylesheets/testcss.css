@@ -1,0 +1,24 @@
+﻿.ta-editor {
+  min-height: 300px;
+  height: auto;
+  overflow: auto;
+  font-family: inherit;
+  font-size: 100%;
+}
+
+/*.('#summernote'){
+ width: 720px;
+}*/
+
+/*.has-error { background-color: red; }
+        .has-success { background-color: #afdcaf; }
+
+        input[type="text"] {
+            width: 720px;
+            font-family: sans-serif, monospace;
+            font-size: 20px;
+            border: 1px solid grey;
+            border-radius: 4px;
+            height: 30px;
+            padding: 3px;
+        }*/

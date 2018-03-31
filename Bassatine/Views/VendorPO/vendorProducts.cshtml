@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "Vendor Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb breadcrumb-page">
+    <div class="breadcrumb-label text-light-gray">You are here: </div>
+    <li><a href="/">Home</a></li>
+    <li class="active">Products</li>
+</ul>
+
+<!-- Header -->
+<div class="page-header">
+    <div class="row">
+        <h1 class="col-xs-8 text-center text-left-sm"><i class="fa fa-sun-o page-header-icon"></i>&nbsp;&nbsp;List Of Products</h1>
+    </div>
+</div>
+<div class="row" ng-app="bassatineApp" ng-controller="vendorProController">
+    <form class="panel form-horizontal">
+        <div class="col-sm-12">
+            <div class="panel form-horizontal">
+                <div class="panel-heading">
+                    <span class="panel-title">List Of Products<span style="float:right"></span></span>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+
+                            <table class="table ">
+                                <thead>
+                                    <tr>
+                                        <th>Product Code</th>
+                                        <th>Product Description</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="Product in vendorProducts">
+                                        <td><span>{{Product.ProdCode}}</span></td>
+                                        <td><span>{{Product.ProdDesc}}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div> 
